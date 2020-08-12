@@ -21,7 +21,6 @@ const TextBox = styled.div`
   padding-left: 1rem;
   p {
     font-size: 0.75rem;
-    font-family: 'Nunito Sans', sans-serif;
     margin: 0;
     line-height: 1.25rem;
     font-weight: bold;

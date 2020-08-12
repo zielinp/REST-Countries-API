@@ -1,9 +1,26 @@
 import React from "react"
 import CountryCard from "../components/country_card"
-import styled from "styled-components"
+import Header from "../components/header"
+import styled, { createGlobalStyle } from "styled-components"
+
+const GlobalStyle = createGlobalStyle`
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300&display=swap');
+body{
+  padding: 0;
+  margin: 0;
+  font-family: 'Nunito Sans', sans-serif;
+}
+*{
+  box-sizing: border-box;
+}
+`
+
 
 const StyledContainer = styled.div`
-  border: 1px solid black;
+  /* display: grid;
+align-items: center;
+grid-template-columns: repeat(4,1fr); */
+
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
@@ -13,6 +30,9 @@ const StyledContainer = styled.div`
 
 export default function Home() {
   return (
+    <>
+    <GlobalStyle/>
+    <Header/>
     <StyledContainer>
       <CountryCard
         flagUrl="https://upload.wikimedia.org/wikipedia/commons/3/3d/Flag_of_germany_800_480.png"
@@ -73,7 +93,7 @@ export default function Home() {
         countryCapital="Berlin"
       />
     </StyledContainer>
-
+    </>
     
   )
 }
