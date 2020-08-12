@@ -4,15 +4,16 @@ import styled from "styled-components"
 const StyledDiv = styled.div`
   box-shadow: 10px 10px 37px -3px rgba(199,199,199,1);
   border-radius: 0.5rem;
-  height: 15rem;
-  width: 12rem;
+  height: 20rem;
+  width: 16rem;
+  margin: 2rem;
 `
 
 const FlagBox = styled.div`
   background-image: url(${({ flagUrl }) => flagUrl});
   background-size: contain;
   background-repeat: no-repeat;
-  height: 7.5rem;
+  height: 10rem;
   border-radius: 0.5rem;
 `
 
