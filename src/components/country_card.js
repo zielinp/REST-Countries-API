@@ -15,6 +15,7 @@ const FlagBox = styled.div`
   background-repeat: no-repeat;
   height: 10rem;
   border-radius: 0.5rem;
+  
 `
 
 const TextBox = styled.div`
