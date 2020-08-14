@@ -6,6 +6,8 @@ import Select from "../components/select"
 
 import styled, { createGlobalStyle } from "styled-components"
 
+import { Link } from "gatsby"
+
 const GlobalStyle = createGlobalStyle`
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300&display=swap');
 body{
@@ -22,7 +24,7 @@ const StyledContainer = styled.div`
   /* display: grid;
 align-items: center;
 grid-template-columns: repeat(4,1fr); */
-
+  text-decoration: none;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
@@ -37,6 +39,13 @@ const StyledSearchSection = styled.div`
   align-items: center;
 `
 
+const StyledLink= styled.div`
+a{
+  text-decoration: none;
+  color: black;
+}
+`
+
 export default function Home() {
   return (
     <>
@@ -49,6 +58,8 @@ export default function Home() {
       </StyledSearchSection>
 
       <StyledContainer>
+        <StyledLink>
+        <Link to="/detail">
         <CountryCard
           flagUrl="https://upload.wikimedia.org/wikipedia/commons/3/3d/Flag_of_germany_800_480.png"
           countryName="Germany"
@@ -56,6 +67,8 @@ export default function Home() {
           countryRegion="Europe"
           countryCapital="Berlin"
         />
+        </Link>
+        </StyledLink>
 
         <CountryCard
           flagUrl="https://upload.wikimedia.org/wikipedia/commons/3/3d/Flag_of_germany_800_480.png"
