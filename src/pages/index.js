@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import CountryCard from "../components/country_card"
 import Header from "../components/header"
 import SearchPanel from "../components/search_panel"
@@ -31,7 +31,6 @@ grid-template-columns: repeat(4,1fr); */
   align-items: center;
 `
 
-
 const StyledSearchSection = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -39,14 +38,40 @@ const StyledSearchSection = styled.div`
   align-items: center;
 `
 
-const StyledLink= styled.div`
-a{
-  text-decoration: none;
-  color: black;
-}
+const StyledLink = styled.div`
+  a {
+    text-decoration: none;
+    color: black;
+  }
 `
 
+const countries = [
+  {
+    name: "Poland",
+    population: 50,
+  },
+  {
+    name: "Germany",
+    population: 52,
+  },
+  {
+    name: "China",
+    population: 53,
+  },
+]
+
 export default function Home() {
+  const [countries, setCountries] = useState([])
+
+  useEffect(() => {
+    fetch(`https://restcountries.eu/rest/v2/all`)
+      .then(res => res.json())
+      .then(res => {
+        setCountries(res)
+        console.log(res)
+      })
+  }, [])
+
   return (
     <>
       <GlobalStyle />
@@ -58,68 +83,12 @@ export default function Home() {
       </StyledSearchSection>
 
       <StyledContainer>
-        <StyledLink>
-        <Link to="/detail">
-        <CountryCard
-          flagUrl="https://upload.wikimedia.org/wikipedia/commons/3/3d/Flag_of_germany_800_480.png"
-          countryName="Germany"
-          countryPopulation="123.456.789"
-          countryRegion="Europe"
-          countryCapital="Berlin"
-        />
-        </Link>
-        </StyledLink>
-
-        <CountryCard
-          flagUrl="https://upload.wikimedia.org/wikipedia/commons/3/3d/Flag_of_germany_800_480.png"
-          countryName="Germany"
-          countryPopulation="123.456.789"
-          countryRegion="Europe"
-          countryCapital="Berlin"
-        />
-        <CountryCard
-          flagUrl="https://upload.wikimedia.org/wikipedia/commons/3/3d/Flag_of_germany_800_480.png"
-          countryName="Germany"
-          countryPopulation="123.456.789"
-          countryRegion="Europe"
-          countryCapital="Berlin"
-        />
-        <CountryCard
-          flagUrl="https://upload.wikimedia.org/wikipedia/commons/3/3d/Flag_of_germany_800_480.png"
-          countryName="Germany"
-          countryPopulation="123.456.789"
-          countryRegion="Europe"
-          countryCapital="Berlin"
-        />
-        <CountryCard
-          flagUrl="https://upload.wikimedia.org/wikipedia/commons/3/3d/Flag_of_germany_800_480.png"
-          countryName="Germany"
-          countryPopulation="123.456.789"
-          countryRegion="Europe"
-          countryCapital="Berlin"
-        />
-
-        <CountryCard
-          flagUrl="https://upload.wikimedia.org/wikipedia/commons/3/3d/Flag_of_germany_800_480.png"
-          countryName="Germany"
-          countryPopulation="123.456.789"
-          countryRegion="Europe"
-          countryCapital="Berlin"
-        />
-        <CountryCard
-          flagUrl="https://upload.wikimedia.org/wikipedia/commons/3/3d/Flag_of_germany_800_480.png"
-          countryName="Germany"
-          countryPopulation="123.456.789"
-          countryRegion="Europe"
-          countryCapital="Berlin"
-        />
-        <CountryCard
-          flagUrl="https://upload.wikimedia.org/wikipedia/commons/3/3d/Flag_of_germany_800_480.png"
-          countryName="Germany"
-          countryPopulation="123.456.789"
-          countryRegion="Europe"
-          countryCapital="Berlin"
-        />
+        {countries.map(country => (
+          <CountryCard
+            countryName={country.name}
+            alpha3Code={country.alpha3Code.toLowerCase()}
+          />
+        ))}
       </StyledContainer>
     </>
   )

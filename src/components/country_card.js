@@ -1,21 +1,19 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import styled from "styled-components"
 
 const StyledDiv = styled.div`
-  box-shadow: 10px 10px 37px -3px rgba(199,199,199,1);
+  box-shadow: 10px 10px 37px -3px rgba(199, 199, 199, 1);
   border-radius: 0.5rem;
   height: 20rem;
   width: 16rem;
   margin: 2rem;
+  display: flex;
+  flex-direction: column;
 `
 
-const FlagBox = styled.div`
-  background-image: url(${({ flagUrl }) => flagUrl});
-  background-size: contain;
-  background-repeat: no-repeat;
-  height: 10rem;
+const FlagBox = styled.img`
+  width: 100%;
   border-radius: 0.5rem;
-  
 `
 
 const TextBox = styled.div`
@@ -25,7 +23,7 @@ const TextBox = styled.div`
     margin: 0;
     line-height: 1.25rem;
     font-weight: bold;
-    span{
+    span {
       font-weight: normal;
     }
   }
@@ -35,18 +33,51 @@ const TextBox = styled.div`
     font-size: 1rem;
   }
 `
-const CountryCard = props => (
-  <>
-    <StyledDiv>
-      <FlagBox flagUrl={props.flagUrl}></FlagBox>
-      <TextBox>
-        <p>{props.countryName}</p>
-        <p>Population: <span>{props.countryPopulation}</span></p>
-        <p>Region: <span>{props.countryRegion}</span></p>
-        <p>Capital: <span>{props.countryCapital}</span></p>
-      </TextBox>
-    </StyledDiv>
-  </>
-)
+// const CountryCard = props => (
+//   <>
+//     <StyledDiv>
+//       <FlagBox flagUrl={props.flagUrl}></FlagBox>
+//       <TextBox>
+//         <p>{props.countryName}</p>
+//         <p>Population: <span>{props.countryPopulation}</span></p>
+//         <p>Region: <span>{props.countryRegion}</span></p>
+//         <p>Capital: <span>{props.countryCapital}</span></p>
+//       </TextBox>
+//     </StyledDiv>
+//   </>
+// )
+
+function CountryCard({ countryName, alpha3Code }) {
+  const [result, setResult] = useState("")
+
+  useEffect(() => {
+    fetch(`https://restcountries.eu/rest/v2/name/${countryName}`)
+      .then(res => res.json())
+      .then(res => {
+        setResult(res[0])
+        console.log(res[0].name)
+      })
+  }, [])
+
+  return (
+    <>
+      <StyledDiv>
+        <FlagBox src={`https://restcountries.eu/data/${alpha3Code}.svg`} />
+        <TextBox>
+          <p>{result.name}</p>
+          <p>
+            Population: <span>{result.population}</span>
+          </p>
+          <p>
+            Region: <span>{result.region}</span>
+          </p>
+          <p>
+            Capital: <span>{result.capital}</span>
+          </p>
+        </TextBox>
+      </StyledDiv>
+    </>
+  )
+}
 
 export default CountryCard
