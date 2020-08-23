@@ -29,17 +29,19 @@ const StyledLink = styled.div`
 
 export default function Home() {
   const [countries, setCountries] = useState([])
+  const [searchTerm, setSearchTerm] = useState("")
+  const [searchedCountries, setSearechedCountries] = useState([])
 
   useEffect(() => {
     fetch(`https://restcountries.eu/rest/v2/all`)
       .then(res => res.json())
       .then(res => {
         setCountries(res)
-        // console.log(res)
+        console.log(res)
       })
   }, [])
 
-  function handleChange(event) {
+  function handleSelectChange(event) {
     fetch(`https://restcountries.eu/rest/v2/region/${event.target.value}`)
       .then(res => res.json())
       .then(res => {
@@ -48,20 +50,37 @@ export default function Home() {
       })
   }
 
+  function handleSearchChange(event) {
+    setSearechedCountries(
+      countries.filter(country => country.name.startsWith(event.target.value))
+    )
+    setSearchTerm(event.target.value)
+    //console.log(event.target.value)
+  }
+
   return (
     <Layout>
       <StyledSearchSection>
-        <SearchPanel></SearchPanel>
-        <Select onChange={handleChange}></Select>
+        <SearchPanel onChange={handleSearchChange}></SearchPanel>
+        <Select onChange={handleSelectChange}></Select>
       </StyledSearchSection>
 
       <StyledContainer>
-        {countries.map(country => (
-          <CountryCard
-            countryName={country.name}
-            alpha3Code={country.alpha3Code.toLowerCase()}
-          />
-        ))}
+        {searchTerm
+          ? searchedCountries.length > 0
+            ? searchedCountries.map(country => (
+                <CountryCard
+                  countryName={country.name}
+                  alpha3Code={country.alpha3Code.toLowerCase()}
+                />
+              ))
+            : "Sorry, invalid country name or not in this region!"
+          : countries.map(country => (
+              <CountryCard
+                countryName={country.name}
+                alpha3Code={country.alpha3Code.toLowerCase()}
+              />
+            ))}
       </StyledContainer>
     </Layout>
   )
