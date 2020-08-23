@@ -1,29 +1,11 @@
 import React, { useEffect, useState } from "react"
+import Layout from "../components/layout"
 import CountryCard from "../components/country_card"
-import Header from "../components/header"
 import SearchPanel from "../components/search_panel"
 import Select from "../components/select"
-
-import styled, { createGlobalStyle } from "styled-components"
-
-import { Link } from "gatsby"
-
-const GlobalStyle = createGlobalStyle`
-@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300&display=swap');
-body{
-  padding: 0;
-  margin: 0;
-  font-family: 'Nunito Sans', sans-serif;
-}
-*{
-  box-sizing: border-box;
-}
-`
+import styled from "styled-components"
 
 const StyledContainer = styled.div`
-  /* display: grid;
-align-items: center;
-grid-template-columns: repeat(4,1fr); */
   text-decoration: none;
   display: flex;
   flex-wrap: wrap;
@@ -44,21 +26,6 @@ const StyledLink = styled.div`
     color: black;
   }
 `
-
-// const countries = [
-//   {
-//     name: "Poland",
-//     population: 50,
-//   },
-//   {
-//     name: "Germany",
-//     population: 52,
-//   },
-//   {
-//     name: "China",
-//     population: 53,
-//   },
-// ]
 
 export default function Home() {
   const [countries, setCountries] = useState([])
@@ -82,10 +49,7 @@ export default function Home() {
   }
 
   return (
-    <>
-      <GlobalStyle />
-      <Header />
-
+    <Layout>
       <StyledSearchSection>
         <SearchPanel></SearchPanel>
         <Select onChange={handleChange}></Select>
@@ -99,6 +63,6 @@ export default function Home() {
           />
         ))}
       </StyledContainer>
-    </>
+    </Layout>
   )
 }
