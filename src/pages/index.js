@@ -45,20 +45,20 @@ const StyledLink = styled.div`
   }
 `
 
-const countries = [
-  {
-    name: "Poland",
-    population: 50,
-  },
-  {
-    name: "Germany",
-    population: 52,
-  },
-  {
-    name: "China",
-    population: 53,
-  },
-]
+// const countries = [
+//   {
+//     name: "Poland",
+//     population: 50,
+//   },
+//   {
+//     name: "Germany",
+//     population: 52,
+//   },
+//   {
+//     name: "China",
+//     population: 53,
+//   },
+// ]
 
 export default function Home() {
   const [countries, setCountries] = useState([])
@@ -68,9 +68,18 @@ export default function Home() {
       .then(res => res.json())
       .then(res => {
         setCountries(res)
-        console.log(res)
+        // console.log(res)
       })
   }, [])
+
+  function handleChange(event) {
+    fetch(`https://restcountries.eu/rest/v2/region/${event.target.value}`)
+      .then(res => res.json())
+      .then(res => {
+        setCountries(res)
+        console.log(res)
+      })
+  }
 
   return (
     <>
@@ -79,7 +88,7 @@ export default function Home() {
 
       <StyledSearchSection>
         <SearchPanel></SearchPanel>
-        <Select></Select>
+        <Select onChange={handleChange}></Select>
       </StyledSearchSection>
 
       <StyledContainer>

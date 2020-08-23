@@ -13,24 +13,39 @@ const StyledSelect = styled.select`
 
   /* appearance: none; */
 
-  option:checked{
-      background-color: grey !important;
+  option:checked {
+    background-color: grey !important;
   }
 `
 
-const Select = () => (
-  <>
-    <StyledSelect>
+// const Select = () => (
+//   <>
+//     <StyledSelect onChange={handleChange}>
+//       <option value="" disabled selected>
+//         Filter by Region
+//       </option>
+//       <option value="Africa">Africa</option>
+//       <option value="America">America</option>
+//       <option value="Asia">Asia</option>
+//       <option value="Europe">Europe</option>
+//       <option value="Oceania">Oceania</option>
+//     </StyledSelect>
+//   </>
+// )
+
+function Select({ onChange }) {
+  return (
+    <StyledSelect onChange={onChange}>
       <option value="" disabled selected>
         Filter by Region
       </option>
       <option value="Africa">Africa</option>
-      <option value="America">America</option>
+      <option value="Americas">Americas</option>
       <option value="Asia">Asia</option>
       <option value="Europe">Europe</option>
       <option value="Oceania">Oceania</option>
     </StyledSelect>
-  </>
-)
+  )
+}
 
 export default Select
