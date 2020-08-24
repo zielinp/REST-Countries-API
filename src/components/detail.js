@@ -1,6 +1,6 @@
 import React from "react"
-import Header from "../components/header"
-import DetailCard from "../components/detail_card"
+import Header from "./header"
+import DetailCard from "./detail_card"
 
 import styled, { createGlobalStyle } from "styled-components"
 
@@ -27,12 +27,13 @@ const BackButton = styled.button`
   border: none;
   border-radius: 5px;
   text-align: center;
-  :hover{
-    cursor:pointer;
+  :hover {
+    cursor: pointer;
   }
 `
 
-export default function Detail() {
+export default function Detail({ pageContext }) {
+  const { country } = pageContext
   return (
     <>
       <GlobalStyle />
@@ -41,16 +42,8 @@ export default function Detail() {
         <BackButton>Back</BackButton>
       </Link>
       <DetailCard
-        countryName="Germany"
-        flagUrl="https://upload.wikimedia.org/wikipedia/commons/3/3d/Flag_of_germany_800_480.png"
-        countryNativeName="Deutchland"
-        countryPopulation="123.456.789"
-        countryRegion="Europe"
-        countrySubRegion="Europe"
-        countryCapital="Berlin"
-        countryTopLevelDomain=".de"
-        countryCurrencies="Euro"
-        countryLanguages="German"
+        countryName={country.name}
+        alpha3Code={country.alpha3Code.toLowerCase()}
       />
     </>
   )

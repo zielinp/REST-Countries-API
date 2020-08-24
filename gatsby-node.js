@@ -7,8 +7,8 @@ exports.createPages = async ({ actions: { createPage } }) => {
   ])
   countryData.forEach(country => {
     createPage({
-      path: `/${country.alpha3Code.toLowerCase()}`,
-      component: require.resolve("./src/components/detail_card.js"),
+      path: `/detail/${country.alpha3Code.toLowerCase()}`,
+      component: require.resolve("./src/components/detail.js"),
       context: { country },
     })
   })

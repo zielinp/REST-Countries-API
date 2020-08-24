@@ -36,7 +36,7 @@ const StyledSelect = styled.select`
 function Select({ onChange }) {
   return (
     <StyledSelect onChange={onChange}>
-      <option value="" disabled selected>
+      <option value="" selected>
         Filter by Region
       </option>
       <option value="Africa">Africa</option>

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react"
 import styled from "styled-components"
+import { Link } from "gatsby"
 
 const StyledDiv = styled.div`
   box-shadow: 10px 10px 37px -3px rgba(199, 199, 199, 1);
@@ -9,6 +10,10 @@ const StyledDiv = styled.div`
   margin: 2rem;
   display: flex;
   flex-direction: column;
+  a {
+    text-decoration: none;
+    color: black;
+  }
 `
 
 const FlagBox = styled.img`
@@ -62,19 +67,21 @@ function CountryCard({ countryName, alpha3Code }) {
   return (
     <>
       <StyledDiv>
-        <FlagBox src={`https://restcountries.eu/data/${alpha3Code}.svg`} />
-        <TextBox>
-          <p>{result.name}</p>
-          <p>
-            Population: <span>{result.population}</span>
-          </p>
-          <p>
-            Region: <span>{result.region}</span>
-          </p>
-          <p>
-            Capital: <span>{result.capital}</span>
-          </p>
-        </TextBox>
+        <Link to={`/detail/${alpha3Code}`}>
+          <FlagBox src={`https://restcountries.eu/data/${alpha3Code}.svg`} />
+          <TextBox>
+            <p>{result.name}</p>
+            <p>
+              Population: <span>{result.population}</span>
+            </p>
+            <p>
+              Region: <span>{result.region}</span>
+            </p>
+            <p>
+              Capital: <span>{result.capital}</span>
+            </p>
+          </TextBox>
+        </Link>
       </StyledDiv>
     </>
   )

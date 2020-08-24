@@ -42,7 +42,12 @@ export default function Home() {
   }, [])
 
   function handleSelectChange(event) {
-    fetch(`https://restcountries.eu/rest/v2/region/${event.target.value}`)
+    let regionPath =
+      event.target.value == ""
+        ? `https://restcountries.eu/rest/v2/all`
+        : `https://restcountries.eu/rest/v2/region/${event.target.value}`
+
+    fetch(regionPath)
       .then(res => res.json())
       .then(res => {
         setCountries(res)
@@ -51,8 +56,11 @@ export default function Home() {
   }
 
   function handleSearchChange(event) {
+    let name = event.target.value
+    let nameCapitalized =
+      name.charAt(0).toUpperCase() + name.slice(1).toLowerCase()
     setSearechedCountries(
-      countries.filter(country => country.name.startsWith(event.target.value))
+      countries.filter(country => country.name.startsWith(nameCapitalized))
     )
     setSearchTerm(event.target.value)
     //console.log(event.target.value)

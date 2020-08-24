@@ -1,6 +1,7 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 
 import styled from "styled-components"
+import { Link } from "gatsby"
 
 const DetailCardContainer = styled.div`
   display: grid;
@@ -10,15 +11,12 @@ const DetailCardContainer = styled.div`
   margin: 2rem;
 `
 
-const FlagBox = styled.div`
-  background-image: url(${({ flagUrl }) => flagUrl});
-  background-size: contain;
-  background-repeat: no-repeat;
-  height: 18rem;
+const FlagBox = styled.img`
+  width: 100%;
   justify-items: center;
   @media only screen and (max-width: 768px) {
-    height: 15rem;
-     }
+    width: 80%;
+  }
 `
 const TextContainer = styled.div`
   display: grid;
@@ -27,8 +25,8 @@ const TextContainer = styled.div`
 `
 const Title = styled.p`
   margin: 0;
-  margin-top:1rem;
-  margin-bottom:1rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
   font-weight: bold;
   font-size: 1.25rem;
 `
@@ -53,6 +51,10 @@ const BorderCountriesContainer = styled.div`
     border: none;
     border-radius: 5px;
     text-align: center;
+    a {
+      text-decoration: none;
+      color: black;
+    }
   }
 `
 
@@ -61,8 +63,8 @@ const InfoBox = styled.div`
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 1rem;
 `
-const TextBox= styled.div`
-   margin: 0;
+const TextBox = styled.div`
+  margin: 0;
   width: 14rem;
   p {
     font-size: 1rem;
@@ -75,53 +77,78 @@ const TextBox= styled.div`
   }
 `
 
-const DetailCard = props => (
-  <>
-    <DetailCardContainer>
-      <FlagBox flagUrl={props.flagUrl}></FlagBox>
-      <TextContainer>
-        <Title>{props.countryName}</Title>
-        <InfoBox>
-        <TextBox>
-            <p>
-              Native Name: <span>{props.countryNativeName}</span>
-            </p>
-            <p>
-              Population: <span>{props.countryPopulation}</span>
-            </p>
-            <p>
-              Region: <span>{props.countryRegion}</span>
-            </p>
-            <p>
-              Sub Region: <span>{props.countrySubRegion}</span>
-            </p>
-            <p>
-              Capital: <span>{props.countryCapital}</span>
-            </p>
-          </TextBox>
-          <TextBox>
-            <p>
-              Top Level Domain: <span>{props.countryTopLevelDomain}</span>
-            </p>
-            <p>
-              Currencies: <span>{props.countryCurrencies}</span>
-            </p>
-            <p>
-              Languages: <span>{props.countryLanguages}</span>
-            </p>
-          </TextBox>
+function DetailCard({ countryName, alpha3Code }) {
+  const [result, setResult] = useState("")
 
-        </InfoBox>
-        <BorderCountriesContainer>
-          <p> Border Countries: </p>
-          <button>Poland</button>
-          <button>France</button>
-          <button>Austria</button>
-          <button>Belgium</button>
-        </BorderCountriesContainer>
-      </TextContainer>
-    </DetailCardContainer>
-  </>
-)
+  useEffect(() => {
+    fetch(`https://restcountries.eu/rest/v2/name/${countryName}`)
+      .then(res => res.json())
+      .then(res => {
+        setResult(res[0])
+        // console.log(res[0].name)
+      })
+  }, [countryName])
+
+  return (
+    <>
+      <DetailCardContainer>
+        <FlagBox src={`https://restcountries.eu/data/${alpha3Code}.svg`} />
+        <TextContainer>
+          <Title>{result.name}</Title>
+          <InfoBox>
+            <TextBox>
+              <p>
+                Native Name: <span>{result.nativeName}</span>
+              </p>
+              <p>
+                Population: <span>{result.population}</span>
+              </p>
+              <p>
+                Region: <span>{result.region}</span>
+              </p>
+              <p>
+                Sub Region: <span>{result.subregion}</span>
+              </p>
+              <p>
+                Capital: <span>{result.capital}</span>
+              </p>
+            </TextBox>
+            <TextBox>
+              <p>
+                Top Level Domain: <span>{result.topLevelDomain}</span>
+              </p>
+              <p>
+                Currencies:
+                {result.currencies == null
+                  ? "No curriences"
+                  : result.currencies.map(currency => (
+                      <span> {currency.name}</span>
+                    ))}
+              </p>
+              <p>
+                Languages:
+                {result.languages == null
+                  ? "No languages"
+                  : result.languages.map(language => (
+                      <span> {language.name}</span>
+                    ))}
+              </p>
+            </TextBox>
+          </InfoBox>
+          <BorderCountriesContainer>
+            <p> Border Countries: </p>
+            {result.borders == null || result.borders.length == 0
+              ? "No border countries"
+              : result.borders.map(border => (
+                  <button>
+                    <Link to={`/detail/${border.toLowerCase()}`}>{border}</Link>
+                  </button>
+                ))}
+          </BorderCountriesContainer>
+        </TextContainer>
+      </DetailCardContainer>
+    </>
+  )
+}
 
 export default DetailCard
