@@ -44,6 +44,15 @@ export default function Detail({ pageContext }) {
       <DetailCard
         countryName={country.name}
         alpha3Code={country.alpha3Code.toLowerCase()}
+        nativeName={country.nativeName}
+        population={country.population}
+        region={country.region}
+        subregion={country.subregion}
+        capital={country.capital}
+        topLevelDomain={country.topLevelDomain}
+        currencies={country.currencies}
+        languages={country.languages}
+        borders={country.borders}
       />
     </>
   )

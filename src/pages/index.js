@@ -80,6 +80,9 @@ export default function Home() {
                 <CountryCard
                   countryName={country.name}
                   alpha3Code={country.alpha3Code.toLowerCase()}
+                  population={country.population}
+                  region={country.region}
+                  capital={country.capital}
                 />
               ))
             : "Sorry, invalid country name or not in this region!"
@@ -87,6 +90,9 @@ export default function Home() {
               <CountryCard
                 countryName={country.name}
                 alpha3Code={country.alpha3Code.toLowerCase()}
+                population={country.population}
+                region={country.region}
+                capital={country.capital}
               />
             ))}
       </StyledContainer>

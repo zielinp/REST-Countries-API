@@ -52,17 +52,17 @@ const TextBox = styled.div`
 //   </>
 // )
 
-function CountryCard({ countryName, alpha3Code }) {
-  const [result, setResult] = useState("")
+function CountryCard({ countryName, alpha3Code, population, region, capital }) {
+  // const [result, setResult] = useState("")
 
-  useEffect(() => {
-    fetch(`https://restcountries.eu/rest/v2/name/${countryName}`)
-      .then(res => res.json())
-      .then(res => {
-        setResult(res[0])
-        // console.log(res[0].name)
-      })
-  }, [countryName])
+  // useEffect(() => {
+  //   fetch(`https://restcountries.eu/rest/v2/name/${countryName}`)
+  //     .then(res => res.json())
+  //     .then(res => {
+  //       setResult(res[0])
+  //       // console.log(res[0].name)
+  //     })
+  // }, [countryName])
 
   return (
     <>
@@ -70,15 +70,15 @@ function CountryCard({ countryName, alpha3Code }) {
         <Link to={`/detail/${alpha3Code}`}>
           <FlagBox src={`https://restcountries.eu/data/${alpha3Code}.svg`} />
           <TextBox>
-            <p>{result.name}</p>
+            <p>{countryName}</p>
             <p>
-              Population: <span>{result.population}</span>
+              Population: <span>{population}</span>
             </p>
             <p>
-              Region: <span>{result.region}</span>
+              Region: <span>{region}</span>
             </p>
             <p>
-              Capital: <span>{result.capital}</span>
+              Capital: <span>{capital}</span>
             </p>
           </TextBox>
         </Link>

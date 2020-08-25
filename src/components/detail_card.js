@@ -77,69 +77,77 @@ const TextBox = styled.div`
   }
 `
 
-function DetailCard({ countryName, alpha3Code }) {
-  const [result, setResult] = useState("")
+function DetailCard({
+  countryName,
+  alpha3Code,
+  nativeName,
+  population,
+  region,
+  subregion,
+  capital,
+  topLevelDomain,
+  currencies,
+  languages,
+  borders,
+}) {
+  // const [result, setResult] = useState("")
 
-  useEffect(() => {
-    fetch(`https://restcountries.eu/rest/v2/name/${countryName}`)
-      .then(res => res.json())
-      .then(res => {
-        setResult(res[0])
-        // console.log(res[0].name)
-      })
-  }, [countryName])
+  // useEffect(() => {
+  //   fetch(`https://restcountries.eu/rest/v2/name/${countryName}`)
+  //     .then(res => res.json())
+  //     .then(res => {
+  //       setResult(res[0])
+  //       // console.log(res[0].name)
+  //     })
+  // }, [countryName])
 
   return (
     <>
       <DetailCardContainer>
         <FlagBox src={`https://restcountries.eu/data/${alpha3Code}.svg`} />
         <TextContainer>
-          <Title>{result.name}</Title>
+          <Title>{countryName}</Title>
           <InfoBox>
             <TextBox>
               <p>
-                Native Name: <span>{result.nativeName}</span>
+                Native Name: <span>{nativeName}</span>
               </p>
               <p>
-                Population: <span>{result.population}</span>
+                Population: <span>{population}</span>
               </p>
               <p>
-                Region: <span>{result.region}</span>
+                Region: <span>{region}</span>
               </p>
               <p>
-                Sub Region: <span>{result.subregion}</span>
+                Sub Region: <span>{subregion}</span>
               </p>
               <p>
-                Capital: <span>{result.capital}</span>
+                Capital: <span>{capital}</span>
               </p>
             </TextBox>
             <TextBox>
               <p>
-                Top Level Domain: <span>{result.topLevelDomain}</span>
+                Top Level Domain: <span>{topLevelDomain}</span>
               </p>
               <p>
                 Currencies:
-                {result.currencies == null
+                {currencies == null
                   ? "No curriences"
-                  : result.currencies.map(currency => (
-                      <span> {currency.name}</span>
-                    ))}
+                  : currencies.map(currency => <span> {currency.name}</span>)}
               </p>
               <p>
                 Languages:
-                {result.languages == null
+                {languages == null
                   ? "No languages"
-                  : result.languages.map(language => (
-                      <span> {language.name}</span>
-                    ))}
+                  : languages.map(language => <span> {language.name}</span>)}
               </p>
             </TextBox>
           </InfoBox>
           <BorderCountriesContainer>
             <p> Border Countries: </p>
-            {result.borders == null || result.borders.length == 0
+            {borders == null || borders.length == 0
               ? "No border countries"
-              : result.borders.map(border => (
+              : borders.map(border => (
                   <button>
                     <Link to={`/detail/${border.toLowerCase()}`}>{border}</Link>
                   </button>
