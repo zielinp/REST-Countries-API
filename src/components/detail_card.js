@@ -94,16 +94,13 @@ function DetailCard({
   languages,
   borders,
 }) {
-  // const [result, setResult] = useState("")
-
-  // useEffect(() => {
-  //   fetch(`https://restcountries.eu/rest/v2/name/${countryName}`)
-  //     .then(res => res.json())
-  //     .then(res => {
-  //       setResult(res[0])
-  //       // console.log(res[0].name)
-  //     })
-  // }, [countryName])
+  function getBorderFullName(alpha3Code) {
+    let localStorageCountries = JSON.parse(localStorage.getItem("countries"))
+    let fullNameBorder = localStorageCountries.find(
+      country => country.alpha3Code == alpha3Code
+    )
+    return fullNameBorder.name
+  }
 
   return (
     <>
@@ -158,7 +155,7 @@ function DetailCard({
               ? "No border countries"
               : borders.map(border => (
                   <Link to={`/detail/${border.toLowerCase()}`}>
-                    <button>{border}</button>
+                    <button>{getBorderFullName(border)}</button>
                   </Link>
                 ))}
           </BorderCountriesContainer>
