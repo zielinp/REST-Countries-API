@@ -10,9 +10,14 @@ const StyledDiv = styled.div`
   margin: 2rem;
   display: flex;
   flex-direction: column;
+  transition: transform 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   a {
     text-decoration: none;
     color: black;
+  }
+  :hover {
+    transform: scale(0.95);
+    box-shadow: 6px 6px 23px -3px rgba(199, 199, 199, 0.8);
   }
 `
 
@@ -38,19 +43,6 @@ const TextBox = styled.div`
     font-size: 1rem;
   }
 `
-// const CountryCard = props => (
-//   <>
-//     <StyledDiv>
-//       <FlagBox flagUrl={props.flagUrl}></FlagBox>
-//       <TextBox>
-//         <p>{props.countryName}</p>
-//         <p>Population: <span>{props.countryPopulation}</span></p>
-//         <p>Region: <span>{props.countryRegion}</span></p>
-//         <p>Capital: <span>{props.countryCapital}</span></p>
-//       </TextBox>
-//     </StyledDiv>
-//   </>
-// )
 
 function CountryCard({ countryName, alpha3Code, population, region, capital }) {
   // const [result, setResult] = useState("")
