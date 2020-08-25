@@ -51,6 +51,10 @@ const BorderCountriesContainer = styled.div`
     border: none;
     border-radius: 5px;
     text-align: center;
+    :hover {
+      cursor: pointer;
+      transform: scale(0.9);
+    }
     a {
       text-decoration: none;
       color: black;
@@ -113,7 +117,12 @@ function DetailCard({
                 Native Name: <span>{nativeName}</span>
               </p>
               <p>
-                Population: <span>{population}</span>
+                Population:{" "}
+                <span>
+                  {population
+                    .toString()
+                    .replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")}
+                </span>
               </p>
               <p>
                 Region: <span>{region}</span>
@@ -148,9 +157,9 @@ function DetailCard({
             {borders == null || borders.length == 0
               ? "No border countries"
               : borders.map(border => (
-                  <button>
-                    <Link to={`/detail/${border.toLowerCase()}`}>{border}</Link>
-                  </button>
+                  <Link to={`/detail/${border.toLowerCase()}`}>
+                    <button>{border}</button>
+                  </Link>
                 ))}
           </BorderCountriesContainer>
         </TextContainer>

@@ -3,6 +3,7 @@ import Layout from "../components/layout"
 import CountryCard from "../components/country_card"
 import SearchPanel from "../components/search_panel"
 import Loader from "react-loader-spinner"
+//import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 import Select from "../components/select"
 import styled from "styled-components"
 
@@ -36,12 +37,19 @@ export default function Home() {
 
   useEffect(() => {
     setLoading(true)
-    fetch(`https://restcountries.eu/rest/v2/all`)
-      .then(res => res.json())
-      .then(res => {
-        setCountries(res)
-        setLoading(false)
-      })
+    if (JSON.parse(localStorage.getItem("countries")) == null) {
+      fetch(`https://restcountries.eu/rest/v2/all`)
+        .then(res => res.json())
+        .then(res => {
+          setCountries(res)
+          //setLoading(false)
+          localStorage.setItem("countries", JSON.stringify(res))
+        })
+    } else {
+      //setLoading(false)
+      setCountries(JSON.parse(localStorage.getItem("countries")))
+    }
+    setLoading(false)
   }, [])
 
   function handleSelectChange(event) {

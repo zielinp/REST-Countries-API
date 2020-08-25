@@ -29,6 +29,8 @@ const BackButton = styled.button`
   text-align: center;
   :hover {
     cursor: pointer;
+    transform: scale(0.95);
+    /* box-shadow: 6px 6px 23px -3px rgba(199, 199, 199, 0.8); */
   }
 `
 

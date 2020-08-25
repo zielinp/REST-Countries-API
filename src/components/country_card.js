@@ -24,6 +24,7 @@ const StyledDiv = styled.div`
 const FlagBox = styled.img`
   width: 100%;
   border-radius: 0.5rem;
+  max-height: 12rem;
 `
 
 const TextBox = styled.div`
@@ -64,7 +65,12 @@ function CountryCard({ countryName, alpha3Code, population, region, capital }) {
           <TextBox>
             <p>{countryName}</p>
             <p>
-              Population: <span>{population}</span>
+              Population:{" "}
+              <span>
+                {population
+                  .toString()
+                  .replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")}
+              </span>
             </p>
             <p>
               Region: <span>{region}</span>
