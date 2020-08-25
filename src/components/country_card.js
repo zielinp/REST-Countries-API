@@ -1,6 +1,18 @@
 import React, { useEffect, useState } from "react"
-import styled from "styled-components"
+import styled, { keyframes } from "styled-components"
 import { Link } from "gatsby"
+
+const fadeInUp = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`
 
 const StyledDiv = styled.div`
   box-shadow: 10px 10px 37px -3px rgba(199, 199, 199, 1);
@@ -11,6 +23,7 @@ const StyledDiv = styled.div`
   display: flex;
   flex-direction: column;
   transition: transform 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  animation: ${fadeInUp} 0.6s linear forwards;
   a {
     text-decoration: none;
     color: black;
@@ -27,6 +40,8 @@ const FlagBox = styled.img`
 `
 
 const TextBox = styled.div`
+  opacity: 0;
+  animation: ${fadeInUp} 0.3s 0.4s linear forwards;
   padding-left: 1rem;
   p {
     font-size: 0.75rem;
