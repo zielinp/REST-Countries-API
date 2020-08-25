@@ -85,7 +85,6 @@ function DetailCard({ countryName, alpha3Code }) {
       .then(res => res.json())
       .then(res => {
         setResult(res[0])
-        // console.log(res[0].name)
       })
   }, [countryName])
 

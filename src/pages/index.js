@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react"
 import Layout from "../components/layout"
 import CountryCard from "../components/country_card"
 import SearchPanel from "../components/search_panel"
+import Loader from "react-loader-spinner"
 import Select from "../components/select"
 import styled from "styled-components"
 
@@ -31,13 +32,15 @@ export default function Home() {
   const [countries, setCountries] = useState([])
   const [searchTerm, setSearchTerm] = useState("")
   const [searchedCountries, setSearechedCountries] = useState([])
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
+    setLoading(true)
     fetch(`https://restcountries.eu/rest/v2/all`)
       .then(res => res.json())
       .then(res => {
         setCountries(res)
-        console.log(res)
+        setLoading(false)
       })
   }, [])
 
@@ -46,12 +49,12 @@ export default function Home() {
       event.target.value == ""
         ? `https://restcountries.eu/rest/v2/all`
         : `https://restcountries.eu/rest/v2/region/${event.target.value}`
-
+    setLoading(true)
     fetch(regionPath)
       .then(res => res.json())
       .then(res => {
         setCountries(res)
-        console.log(res)
+        setLoading(false)
       })
   }
 
@@ -74,21 +77,33 @@ export default function Home() {
       </StyledSearchSection>
 
       <StyledContainer>
-        {searchTerm
-          ? searchedCountries.length > 0
-            ? searchedCountries.map(country => (
-                <CountryCard
-                  countryName={country.name}
-                  alpha3Code={country.alpha3Code.toLowerCase()}
-                />
-              ))
-            : "Sorry, invalid country name or not in this region!"
-          : countries.map(country => (
+        {loading ? (
+          <Loader
+            type="ThreeDots"
+            color="#00BFFF"
+            height={40}
+            width={40}
+            timeout={3000} //3 secs
+          />
+        ) : searchTerm ? (
+          searchedCountries.length > 0 ? (
+            searchedCountries.map(country => (
               <CountryCard
                 countryName={country.name}
                 alpha3Code={country.alpha3Code.toLowerCase()}
               />
-            ))}
+            ))
+          ) : (
+            "Sorry, invalid country name or not in this region!"
+          )
+        ) : (
+          countries.map(country => (
+            <CountryCard
+              countryName={country.name}
+              alpha3Code={country.alpha3Code.toLowerCase()}
+            />
+          ))
+        )}
       </StyledContainer>
     </Layout>
   )
