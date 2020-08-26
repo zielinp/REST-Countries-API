@@ -1,5 +1,4 @@
 import React from "react"
-import Header from "./header"
 import DetailCard from "./detail_card"
 import Layout from "./layout"
 import styled, { createGlobalStyle } from "styled-components"
