@@ -15,6 +15,8 @@ const FlagBox = styled.img`
   justify-items: center;
   @media only screen and (max-width: 768px) {
     width: 80%;
+    display: flex;
+    justify-self: center;
   }
 `
 const TextContainer = styled.div`
@@ -32,6 +34,7 @@ const BorderCountriesContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   margin-top: 2rem;
+  align-content: flex-start;
   p {
     font-size: 1rem;
     margin: 0;
@@ -39,6 +42,7 @@ const BorderCountriesContainer = styled.div`
     font-weight: bold;
     margin-right: 0.5rem;
   }
+
   button {
     margin-right: 0.5rem;
     margin-bottom: 0.5rem;
@@ -52,10 +56,6 @@ const BorderCountriesContainer = styled.div`
     :hover {
       cursor: pointer;
       transform: scale(0.9);
-    }
-    a {
-      text-decoration: none;
-      color: black;
     }
   }
 `

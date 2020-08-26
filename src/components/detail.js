@@ -1,10 +1,13 @@
 import React from "react"
 import Header from "./header"
 import DetailCard from "./detail_card"
-
+import Layout from "./layout"
 import styled, { createGlobalStyle } from "styled-components"
 
 import { Link } from "gatsby"
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons"
 
 const GlobalStyle = createGlobalStyle`
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300&display=swap');
@@ -27,6 +30,7 @@ const BackButton = styled.button`
   border: none;
   border-radius: 5px;
   text-align: center;
+
   :hover {
     cursor: pointer;
     transform: scale(0.95);
@@ -38,24 +42,27 @@ export default function Detail({ pageContext }) {
   const { country } = pageContext
   return (
     <>
-      <GlobalStyle />
-      <Header />
-      <Link to="/">
-        <BackButton>Back</BackButton>
-      </Link>
-      <DetailCard
-        countryName={country.name}
-        alpha3Code={country.alpha3Code.toLowerCase()}
-        nativeName={country.nativeName}
-        population={country.population}
-        region={country.region}
-        subregion={country.subregion}
-        capital={country.capital}
-        topLevelDomain={country.topLevelDomain}
-        currencies={country.currencies}
-        languages={country.languages}
-        borders={country.borders}
-      />
+      <Layout>
+        <Link to="/">
+          <BackButton>
+            <FontAwesomeIcon icon={faArrowLeft} size="1x" />
+            <span> Back</span>
+          </BackButton>
+        </Link>
+        <DetailCard
+          countryName={country.name}
+          alpha3Code={country.alpha3Code.toLowerCase()}
+          nativeName={country.nativeName}
+          population={country.population}
+          region={country.region}
+          subregion={country.subregion}
+          capital={country.capital}
+          topLevelDomain={country.topLevelDomain}
+          currencies={country.currencies}
+          languages={country.languages}
+          borders={country.borders}
+        />
+      </Layout>
     </>
   )
 }

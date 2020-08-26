@@ -10,8 +10,11 @@ const StyledSelect = styled.select`
   margin: 2rem 2rem 0 2rem;
   border: none;
   border-radius: 5px;
-
-  /* appearance: none; */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: url("https://upload.wikimedia.org/wikipedia/commons/e/e4/Ic_arrow_drop_down_36px.svg")
+    96% / 15% no-repeat;
 
   option:checked {
     background-color: grey !important;

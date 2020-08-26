@@ -1,6 +1,7 @@
 import React from "react"
 import styled, { keyframes } from "styled-components"
 import { Link } from "gatsby"
+import Layout from "./layout"
 
 const fadeIn = keyframes`
   from {

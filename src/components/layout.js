@@ -37,17 +37,23 @@ const GlobalStyle = createGlobalStyle`
   }
 `
 
-const Layout = ({ children }) => {
+function Layout({ children }) {
   return (
-    <ThemeToggler>
-      {({ theme, toggleTheme }) => (
-        <>
-          <GlobalStyle />
-          <Header theme={theme} toggleTheme={toggleTheme} />
-          {children}
-        </>
-      )}
-    </ThemeToggler>
+    // <ThemeToggler>
+    //   {({ theme, toggleTheme }) => (
+    //     <>
+    //       <GlobalStyle />
+    //       <Header theme={theme} toggleTheme={toggleTheme} />
+    //       {children}
+    //     </>
+    //   )}
+    // </ThemeToggler>
+
+    <>
+      <GlobalStyle />
+      <Header />
+      {children}
+    </>
   )
 }
 

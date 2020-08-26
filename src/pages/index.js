@@ -35,11 +35,11 @@ export default function Home() {
         .then(res => res.json())
         .then(res => {
           setCountries(res)
-          //setLoading(false)
+          setLoading(false)
           localStorage.setItem("countries", JSON.stringify(res))
         })
     } else {
-      //setLoading(false)
+      setLoading(false)
       setCountries(JSON.parse(localStorage.getItem("countries")))
     }
     setLoading(false)
@@ -72,23 +72,37 @@ export default function Home() {
 
   return (
     <Layout>
-      <StyledSearchSection>
-        <SearchPanel onChange={handleSearchChange}></SearchPanel>
-        <Select onChange={handleSelectChange}></Select>
-      </StyledSearchSection>
+      <>
+        <StyledSearchSection>
+          <SearchPanel onChange={handleSearchChange}></SearchPanel>
+          <Select onChange={handleSelectChange}></Select>
+        </StyledSearchSection>
 
-      <StyledContainer>
-        {loading ? (
-          <Loader
-            type="ThreeDots"
-            color="#00BFFF"
-            height={40}
-            width={40}
-            timeout={3000} //3 secs
-          />
-        ) : searchTerm ? (
-          searchedCountries.length > 0 ? (
-            searchedCountries.map(country => (
+        <StyledContainer>
+          {loading ? (
+            <Loader
+              type="ThreeDots"
+              color="#00BFFF"
+              height={40}
+              width={40}
+              timeout={3000} //3 secs
+            />
+          ) : searchTerm ? (
+            searchedCountries.length > 0 ? (
+              searchedCountries.map(country => (
+                <CountryCard
+                  countryName={country.name}
+                  alpha3Code={country.alpha3Code.toLowerCase()}
+                  population={country.population}
+                  region={country.region}
+                  capital={country.capital}
+                />
+              ))
+            ) : (
+              "Sorry, invalid country name or not in this region!"
+            )
+          ) : (
+            countries.map(country => (
               <CountryCard
                 countryName={country.name}
                 alpha3Code={country.alpha3Code.toLowerCase()}
@@ -97,21 +111,9 @@ export default function Home() {
                 capital={country.capital}
               />
             ))
-          ) : (
-            "Sorry, invalid country name or not in this region!"
-          )
-        ) : (
-          countries.map(country => (
-            <CountryCard
-              countryName={country.name}
-              alpha3Code={country.alpha3Code.toLowerCase()}
-              population={country.population}
-              region={country.region}
-              capital={country.capital}
-            />
-          ))
-        )}
-      </StyledContainer>
+          )}
+        </StyledContainer>
+      </>
     </Layout>
   )
 }
