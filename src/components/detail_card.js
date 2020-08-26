@@ -5,7 +5,6 @@ import { Link } from "gatsby"
 
 const DetailCardContainer = styled.div`
   display: grid;
-  /* grid-template-columns: 1fr 1fr; */
   grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
   gap: 2rem;
   margin: 2rem;
@@ -20,7 +19,6 @@ const FlagBox = styled.img`
 `
 const TextContainer = styled.div`
   display: grid;
-  /* grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); */
   grid-template-rows: 0.5fr auto 1fr;
 `
 const Title = styled.p`
@@ -90,17 +88,6 @@ function DetailCard({
   languages,
   borders,
 }) {
-  // const [result, setResult] = useState("")
-
-  // useEffect(() => {
-  //   fetch(`https://restcountries.eu/rest/v2/name/${countryName}`)
-  //     .then(res => res.json())
-  //     .then(res => {
-  //       setResult(res[0])
-  //       // console.log(res[0].name)
-  //     })
-  // }, [countryName])
-
   return (
     <>
       <DetailCardContainer>
