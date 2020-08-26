@@ -1,22 +1,8 @@
 import React from "react"
-import Header from "./header"
 import DetailCard from "./detail_card"
-
-import styled, { createGlobalStyle } from "styled-components"
-
+import Layout from "./layout"
+import styled from "styled-components"
 import { Link } from "gatsby"
-
-const GlobalStyle = createGlobalStyle`
-@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300&display=swap');
-body{
-  padding: 0;
-  margin: 0;
-  font-family: 'Nunito Sans', sans-serif;
-}
-*{
-  box-sizing: border-box;
-}
-`
 
 const BackButton = styled.button`
   height: 2rem;
@@ -37,9 +23,7 @@ const BackButton = styled.button`
 export default function Detail({ pageContext }) {
   const { country } = pageContext
   return (
-    <>
-      <GlobalStyle />
-      <Header />
+    <Layout>
       <Link to="/">
         <BackButton>Back</BackButton>
       </Link>
@@ -56,6 +40,6 @@ export default function Detail({ pageContext }) {
         languages={country.languages}
         borders={country.borders}
       />
-    </>
+    </Layout>
   )
 }
