@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React from "react"
 
 import styled from "styled-components"
 import { Link } from "gatsby"
@@ -44,11 +44,15 @@ const BorderCountriesContainer = styled.div`
     margin-bottom: 0.5rem;
     height: 1.5rem;
     min-width: 5rem;
-    box-shadow: 0 0 10px 0 rgba(199, 199, 199, 1);
+    box-shadow: 0 0 10px 0 var(--boxShadowColor);
     background-color: white;
     border: none;
     border-radius: 5px;
     text-align: center;
+    :hover {
+      cursor: pointer;
+      transform: scale(0.9);
+    }
     a {
       text-decoration: none;
       color: black;
@@ -88,6 +92,14 @@ function DetailCard({
   languages,
   borders,
 }) {
+  function getBorderFullName(alpha3Code) {
+    let localStorageCountries = JSON.parse(localStorage.getItem("countries"))
+    let fullNameBorder = localStorageCountries.find(
+      country => country.alpha3Code === alpha3Code
+    )
+    return fullNameBorder.name
+  }
+
   return (
     <>
       <DetailCardContainer>
@@ -100,7 +112,12 @@ function DetailCard({
                 Native Name: <span>{nativeName}</span>
               </p>
               <p>
-                Population: <span>{population}</span>
+                Population:{" "}
+                <span>
+                  {population
+                    .toString()
+                    .replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.")}
+                </span>
               </p>
               <p>
                 Region: <span>{region}</span>
@@ -118,13 +135,13 @@ function DetailCard({
               </p>
               <p>
                 Currencies:
-                {currencies == null
+                {currencies === null
                   ? "No curriences"
                   : currencies.map(currency => <span> {currency.name}</span>)}
               </p>
               <p>
                 Languages:
-                {languages == null
+                {languages === null
                   ? "No languages"
                   : languages.map(language => <span> {language.name}</span>)}
               </p>
@@ -132,12 +149,12 @@ function DetailCard({
           </InfoBox>
           <BorderCountriesContainer>
             <p> Border Countries: </p>
-            {borders == null || borders.length == 0
+            {borders === null || borders.length === 0
               ? "No border countries"
               : borders.map(border => (
-                  <button>
-                    <Link to={`/detail/${border.toLowerCase()}`}>{border}</Link>
-                  </button>
+                  <Link to={`/detail/${border.toLowerCase()}`}>
+                    <button>{getBorderFullName(border)}</button>
+                  </Link>
                 ))}
           </BorderCountriesContainer>
         </TextContainer>

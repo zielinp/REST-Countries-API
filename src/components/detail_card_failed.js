@@ -23,7 +23,7 @@ const FlagBox = styled.div`
 const TextContainer = styled.div`
   margin: 1rem;
   padding: 1rem;
- 
+
   border: 1px solid black;
   display: flex;
   flex-direction: column;
@@ -72,7 +72,7 @@ const BorderCountriesContainer = styled.div`
     margin-right: 0.5rem;
     height: 1.5rem;
     width: 5rem;
-    box-shadow: 0 0 10px 0 rgba(199, 199, 199, 1);
+    box-shadow: 0 0 10px 0 var(--boxShadowColor);
     background-color: white;
     border: none;
     border-radius: 5px;

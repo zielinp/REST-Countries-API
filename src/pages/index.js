@@ -3,6 +3,7 @@ import Layout from "../components/layout"
 import CountryCard from "../components/country_card"
 import SearchPanel from "../components/search_panel"
 import Loader from "react-loader-spinner"
+//import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 import Select from "../components/select"
 import styled from "styled-components"
 
@@ -21,13 +22,6 @@ const StyledSearchSection = styled.div`
   align-items: center;
 `
 
-const StyledLink = styled.div`
-  a {
-    text-decoration: none;
-    color: black;
-  }
-`
-
 export default function Home() {
   const [countries, setCountries] = useState([])
   const [searchTerm, setSearchTerm] = useState("")
@@ -36,17 +30,24 @@ export default function Home() {
 
   useEffect(() => {
     setLoading(true)
-    fetch(`https://restcountries.eu/rest/v2/all`)
-      .then(res => res.json())
-      .then(res => {
-        setCountries(res)
-        setLoading(false)
-      })
+    if (JSON.parse(localStorage.getItem("countries")) == null) {
+      fetch(`https://restcountries.eu/rest/v2/all`)
+        .then(res => res.json())
+        .then(res => {
+          setCountries(res)
+          //setLoading(false)
+          localStorage.setItem("countries", JSON.stringify(res))
+        })
+    } else {
+      //setLoading(false)
+      setCountries(JSON.parse(localStorage.getItem("countries")))
+    }
+    setLoading(false)
   }, [])
 
   function handleSelectChange(event) {
     let regionPath =
-      event.target.value == ""
+      event.target.value === ""
         ? `https://restcountries.eu/rest/v2/all`
         : `https://restcountries.eu/rest/v2/region/${event.target.value}`
     setLoading(true)

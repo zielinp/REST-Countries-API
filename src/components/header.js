@@ -1,12 +1,11 @@
 import React from "react"
 import styled from "styled-components"
-import { ThemeToggler } from "gatsby-plugin-dark-mode"
 
 const StyledHeader = styled.header`
   height: 4rem;
   position: sticky;
   z-index: 2;
-  box-shadow: 0 0 10px 0 rgba(199, 199, 199, 1);
+  box-shadow: 0 0 10px 0 var(--boxShadowColor);
   top: 0;
   display: flex;
   align-items: center;

@@ -10,8 +10,10 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     font-family: 'Nunito Sans', sans-serif;
     --bg: hsl(0, 0%, 98%);
+    --boxShadowColor: hsl(0, 0%, 78%);
     --elements: hsl(0, 0%, 100%);
-    --textNormal: hsl(200, 15%, 8%);
+    --textTitle: hsl(200, 15%, 5%);
+    --textNormal: hsl(200, 15%, 15%);
     --textInput: hsl(0, 0%, 52%);
     background-color: var(--bg);
   }
@@ -19,8 +21,10 @@ const GlobalStyle = createGlobalStyle`
   body.dark {
     -webkit-font-smoothing: antialiased;
     --bg: hsl(207, 26%, 17%);
+    --boxShadowColor: hsl(207, 26%, 10%);
     --elements: hsl(209, 23%, 22%);
-    --textNormal: hsl(0, 0%, 100%);
+    --textTitle: hsl(0, 0%, 100%);
+    --textNormal: hsl(0, 0%, 82%);
     --textInput: hsl(0, 0%, 100%);
   }
 
