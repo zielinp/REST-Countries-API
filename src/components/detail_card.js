@@ -95,14 +95,12 @@ function DetailCard({
   const [key, setKey] = useState(undefined)
 
   useEffect(() => {
-    setKey(localStorage.getItem("countries"))
-  })
+    setKey(JSON.parse(localStorage.getItem("countries")))
+  }, [])
 
   function getBorderFullName(alpha3Code) {
-    let localStorageCountries = JSON.parse(localStorage.getItem("countries"))
-    let fullNameBorder = localStorageCountries.find(
-      country => country.alpha3Code === alpha3Code
-    )
+    //let localStorageCountries = JSON.parse(localStorage.getItem("countries"))
+    let fullNameBorder = key.find(country => country.alpha3Code === alpha3Code)
     return fullNameBorder.name
   }
 
