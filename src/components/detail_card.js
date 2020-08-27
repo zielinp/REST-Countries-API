@@ -93,7 +93,10 @@ function DetailCard({
   borders,
 }) {
   function getBorderFullName(alpha3Code) {
-    let localStorageCountries = JSON.parse(localStorage.getItem("countries"))
+    const windowGlobal = typeof window !== "undefined" && window
+    let localStorageCountries = JSON.parse(
+      windowGlobal.localStorage.getItem("countries")
+    )
     let fullNameBorder = localStorageCountries.find(
       country => country.alpha3Code === alpha3Code
     )
