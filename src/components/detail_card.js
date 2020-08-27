@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 
 import styled from "styled-components"
 import { Link } from "gatsby"
@@ -92,11 +92,14 @@ function DetailCard({
   languages,
   borders,
 }) {
+  const [key, setKey] = useState(undefined)
+
+  useEffect(() => {
+    setKey(localStorage.getItem("countries"))
+  })
+
   function getBorderFullName(alpha3Code) {
-    const windowGlobal = typeof window !== "undefined" && window
-    let localStorageCountries = JSON.parse(
-      windowGlobal.localStorage.getItem("countries")
-    )
+    let localStorageCountries = JSON.parse(localStorage.getItem("countries"))
     let fullNameBorder = localStorageCountries.find(
       country => country.alpha3Code === alpha3Code
     )
