@@ -28,21 +28,31 @@ export default function Home() {
   const [searchedCountries, setSearechedCountries] = useState([])
   const [loading, setLoading] = useState(true)
 
+  // useEffect(() => {
+  //   setLoading(true)
+  //   if (JSON.parse(localStorage.getItem("countries")) == null) {
+  //     fetch(`https://restcountries.eu/rest/v2/all`)
+  //       .then(res => res.json())
+  //       .then(res => {
+  //         setCountries(res)
+  //         setLoading(false)
+  //         localStorage.setItem("countries", JSON.stringify(res))
+  //       })
+  //   } else {
+  //     setLoading(false)
+  //     setCountries(JSON.parse(localStorage.getItem("countries")))
+  //   }
+  //   setLoading(false)
+  // }, [])
+
   useEffect(() => {
     setLoading(true)
-    if (JSON.parse(localStorage.getItem("countries")) == null) {
-      fetch(`https://restcountries.eu/rest/v2/all`)
-        .then(res => res.json())
-        .then(res => {
-          setCountries(res)
-          setLoading(false)
-          localStorage.setItem("countries", JSON.stringify(res))
-        })
-    } else {
-      setLoading(false)
-      setCountries(JSON.parse(localStorage.getItem("countries")))
-    }
-    setLoading(false)
+    fetch(`https://restcountries.eu/rest/v2/all`)
+      .then(res => res.json())
+      .then(res => {
+        setCountries(res)
+        setLoading(false)
+      })
   }, [])
 
   function handleSelectChange(event) {

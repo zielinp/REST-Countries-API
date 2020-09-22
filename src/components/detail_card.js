@@ -16,7 +16,7 @@ const FlagBox = styled.img`
   @media only screen and (max-width: 768px) {
     width: 80%;
     display: flex;
-    justify-self: center;
+    /* justify-self: center; */
   }
 `
 const TextContainer = styled.div`
@@ -79,6 +79,19 @@ const TextBox = styled.div`
   }
 `
 
+// function getBorderFullName(alpha3Code) {
+//   let fullBorderName = " "
+//   fetch(`https://restcountries.eu/rest/v2/alpha/${alpha3Code}?fields=name`)
+//     .then(res => res.json())
+//     .then(res => {
+//       //console.log(res)
+//       fullBorderName = res.name
+//       console.log(fullBorderName)
+//     })
+
+//   return fullBorderName
+// }
+
 function DetailCard({
   countryName,
   alpha3Code,
@@ -92,17 +105,22 @@ function DetailCard({
   languages,
   borders,
 }) {
-  const [key, setKey] = useState(undefined)
+  // const [key, setKey] = useState(undefined)
 
+  // useEffect(() => {
+  //   setKey(localStorage.getItem("countries"))
+  // }, [])
+
+  const [result, setResult] = useState("")
+  // const [border2, setBorder2] = useState("")
   useEffect(() => {
-    setKey(JSON.parse(localStorage.getItem("countries")))
-  }, [])
-
-  function getBorderFullName(alpha3Code) {
-    //let localStorageCountries = JSON.parse(localStorage.getItem("countries"))
-    let fullNameBorder = key.find(country => country.alpha3Code === alpha3Code)
-    return fullNameBorder.name
-  }
+    fetch(`https://restcountries.eu/rest/v2/name/${countryName}`)
+      .then(res => res.json())
+      .then(res => {
+        setResult(res[0])
+        // console.log(res[0].name)
+      })
+  }, [countryName])
 
   return (
     <>
@@ -157,7 +175,7 @@ function DetailCard({
               ? "No border countries"
               : borders.map(border => (
                   <Link to={`/detail/${border.toLowerCase()}`}>
-                    <button>{getBorderFullName(border)}</button>
+                    <button>{border}</button>
                   </Link>
                 ))}
           </BorderCountriesContainer>
