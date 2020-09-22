@@ -34,6 +34,7 @@ const BorderCountriesContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   margin-top: 2rem;
+  margin-right: 1rem;
   align-content: flex-start;
   p {
     font-size: 1rem;

@@ -5,5 +5,5 @@
  */
 
 module.exports = {
-  plugins: ["gatsby-plugin-dark-mode"],
+  plugins: ["gatsby-plugin-dark-mode", `gatsby-plugin-styled-components`],
 }
